@@ -38,7 +38,7 @@ They can essentially hold money in user accounts and also make internal transfer
 We have deployed 5 demo banks in different currencies for you to play with:
 
 | Bank | Currency | external URL | Internal URL | Omnibus account |
--------------------------------------------------------------------
+|------|----------|--------------|--------------|-----------------|
 | Santander Brasil | BRL | TBD | TBD | BRSANOMNI00000000 |
 | Acme Bank Brasil | BRL | TBD | TBD | BRACMOMNI00000000 |
 | Santander US | USD | TBD | TBD | USSANOMNI00000000 |
@@ -57,10 +57,10 @@ In order to detokenize money, you have to call the redeem_funds method and speci
 
 Finally, we also provide a simple wallet service to create and manage accounts in the cryptobank smart contract. You can access them here:
 
-| SanCash | Currency | external URL | Internal URL |
-----------------------------------------------------
-| Santander Brasil | BRL | TBD | TBD |
-| Acme Bank Brasil | BRL | TBD | TBD |
+| SanCash          | Currency | external URL | Internal URL |
+|------------------|----------|--------------|--------------|
+| Santander Brasil | BRL      | TBD          | TBD          |
+| Acme Bank Brasil | BRL      | TBD          | TBD          |
 | Santander US | USD | TBD | TBD |
 | Santander UK | GBP | TBD | TBD |
 | Santander España | EUR | TBD | TBD |
