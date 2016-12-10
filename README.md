@@ -39,11 +39,11 @@ We have deployed 5 demo banks in different currencies for you to play with:
 
 | Bank | Currency | external URL | Internal URL | Omnibus account |
 |------|----------|--------------|--------------|-----------------|
-| Santander Brasil | BRL | TBD | TBD | BRSANOMNI00000000 |
-| Acme Bank Brasil | BRL | TBD | TBD | BRACMOMNI00000000 |
-| Santander US | USD | TBD | TBD | USSANOMNI00000000 |
-| Santander UK | GBP | TBD | TBD | GBSANOMNI00000000 |
-| Santander España | EUR | TBD | TBD | ESSANOMNI00000000 |
+| Santander Brasil | BRL | http://169.57.163.237:8001/ | http://10.150.230.2:8001/ | BRSANOMNI00000000 |
+| Acme Bank Brasil | BRL | http://169.57.163.238:8001/ | http://10.150.230.20:8001/ | BRACMOMNI00000000 |
+| Santander US | USD | http://169.57.163.243:8001/ | http://10.150.230.11:8001/ | USSANOMNI00000000 |
+| Santander UK | GBP | http://169.57.163.242:8001/ | http://10.150.230.25:8001/ | GBSANOMNI00000000 |
+| Santander España | EUR | http://169.57.163.253:8001/ | http://10.150.230.32:8001/ | ESSANOMNI00000000 |
 
 And we have created pre-funded accounts for all of you in all banks. To access them for the first time just point to the URL and click on the "forgot pasword" link. Then enter your email (the one you registered with) and you will receive an email with the password. You then can enter your account and make transfers
 
@@ -59,11 +59,11 @@ Finally, we also provide a simple wallet service to create and manage accounts i
 
 | SanCash          | Currency | external URL | Internal URL |
 |------------------|----------|--------------|--------------|
-| Santander Brasil | BRL      | TBD          | TBD          |
-| Acme Bank Brasil | BRL      | TBD          | TBD          |
-| Santander US | USD | TBD | TBD |
-| Santander UK | GBP | TBD | TBD |
-| Santander España | EUR | TBD | TBD |
+| Santander Brasil | BRL | http://169.57.163.237:8003/ | http://10.150.230.2:8003/ |
+| Acme Bank Brasil | BRL | http://169.57.163.238:8003/ | http://10.150.230.20:8003/ |
+| Santander US | USD | http://169.57.163.243:8003/ | http://10.150.230.11:8003/ |
+| Santander UK | GBP | http://169.57.163.242:8003/ | http://10.150.230.25:8003/ |
+| Santander España | EUR | http://169.57.163.253:8003/ | http://10.150.230.32:8003/ |
 
 With this service, you can very easily generate create wallet accounts with their corresponding addresses and key files, and you can do transfers and redemptions very easily.
 
