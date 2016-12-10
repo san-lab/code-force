@@ -79,3 +79,98 @@ Maybe you want to do a little tutorial ;-)
 - Make a transfer to a fellow participant if you want ;-)
 - Make a redemption, specifiying the last four digits of your bank account
 - Go back to your demo bank account and watch the money arrive safely back to the bank
+
+## The SanCash API
+
+Ok, so some of you asked for a simple API to access the SanCash wallet service. Again, this was just supposed to be a simple demonstrator, but for those of you that are not that familiar with Ethereum this can actually be helpful.
+
+So I put together a simple RESTful API to access and manage the wallet. Again, this is really simple to hack, so please do behave ;-)
+
+To access the RESTful web services, you simply need to access the SanCash wallets using the "/service/" directory:
+
+| SanCash          | Currency | external URL | Internal URL |
+|------------------|----------|--------------|--------------|
+| Santander Brasil | BRL | http://169.57.163.237:8003/services/ | http://10.150.230.2:8003/services/ |
+| Acme Bank Brasil | BRL | http://169.57.163.238:8003/services/ | http://10.150.230.20:8003/services/ |
+| Santander US | USD | http://169.57.163.243:8003/services/ | http://10.150.230.11:8003/services/ |
+| Santander UK | GBP | http://169.57.163.242:8003/services/ | http://10.150.230.25:8003/services/ |
+| Santander España | EUR | http://169.57.163.253:8003/services/ | http://10.150.230.32:8003/services/ |
+
+The commands have simple web service syntax, and you will need to authenticate in your calls. The general syntax is the following:
+
+```
+http://<SanCash IP>:8003/services/?user=<_your_login_>&pass=<_your_passphrase_>&command=<_a_command>[&_params_=_value_]
+```
+
+You will get in return a json object with two elements:
+i) "Success": either true or false
+ii) "Data": the corresponding data in json format, or the reason why the command failed if it did
+
+
+The following services are available:
+
+- *Read balance* (`command=readbalance`) - this is to retrieve your balance. Example:
+
+```
+http://169.57.163.237:8003/services/?user=julio&pass=mypass&command=readbalance
+```
+
+... after which I get something like:
+
+```
+{"Success":true,"Data":"400.00"}
+```
+
+- *Does account exist* (`doesaccountexist`) - this is to check whether an acount with a given number exists. It takes one extra argument: _whichaccount_, to specify the account number you want to check. Example:
+
+```
+http://169.57.163.237:8003/services/?user=julio&pass=mypass&command=doesaccountexist&whichaccount=2
+```
+
+... after which I get:
+
+```
+{"Success":true,"Data":true}
+```
+
+- *Which account* (`whichaccount`) - this is to retrieve the account number from an ethereum public key. Again, this takes an extra argument: _whichaddress_, to specify the address to check. Example:
+
+```
+http://169.57.163.237:8003/services/?user=julio&pass=mypass&command=whichaccount&whichaddress=0xc6d1463b3b2a26dd29d42b56e3f9f14b21faeb6e
+```
+... which results in:
+
+```
+{"Success":true,"Data":2}
+```
+
+- *Make transfer* (`maketransfer`) - this is to actually make a transfer from your account (the one you authenticate from). It takes three additional arguments: _toaccount_ (the destination account for the transfer), _amount_ (the amount to transfer), and _message_ (the message that accompanies the transfer). Example:
+
+```
+http://169.57.163.237:8003/services/?user=julio&pass=mypass&command=maketransfer&toaccount=4&amount=4.5&message=%22Hello%20Marina%22
+```
+
+... and what you get is the hash of the transaction:
+
+```
+{"Success":true,"Data":"0xfb80f1e310163d151925fc71ac1d9a7c3af5754127b243d2768ffa5421a145f9"}
+```
+
+- *Read transaction* (`readtransaction`) - this is to retrieve a transaction sent to the nextwork, like for example the transfer as per the above. It takes one argument: _txhash_, the hash of the transaction (the same you get in the maketransfer call). Example:
+
+```
+http://169.57.163.237:8003/services/?user=julio&pass=mypass&command=readtransaction&txhash=0xfb80f1e310163d151925fc71ac1d9a7c3af5754127b243d2768ffa5421a145f9
+```
+
+The return data has four fields: _mined_ (whether the transaction has been mined or not), _n_blocks_since_mining_ (self explanatory, remember to wait for a few blocks if you really want transactions to be final), _succeded_ (whether the transaction was successful or threw an exception), and _tx_details_ (all the fields of a normal ethereum transaction). Example:
+
+```
+{"Success":true,"Data":{"mined":true,"n_blocks_since_mining":30,"succeded":true,"tx_details":{"Hash":[251,128,241,227,16,22,61,21,25,37,252,113,172,29,154,124,58,245,117,65,39,178,67,210,118,143,250,84,33,161,69,249],"Nonce":1,"BlockHash":[197,88,36,156,239,198,217,193,59,79,60,11,177,32,135,56,71,74,231,149,60,5,9,130,140,69,100,45,197,37,31,139],"BlockNumber":12614,"TransactionIndex":0,"From":[198,209,70,59,59,42,38,221,41,212,43,86,227,249,241,75,33,250,235,110],"To":[255,147,141,26,68,129,53,105,176,85,85,221,244,88,83,181,153,17,24,154],"Value":0,"GasPrice":0,"Gas":4700000,"Input":"0x573d3a23000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000001c200000000000000000000000000000000000000000000000000000000000000042248656c6c6f204d6172696e6122000000000000000000000000000000000000"}}}
+```
+
+(sorry this last one has such an ugly output, this is because of the json serializer in go, you will have to translate this to an ascii string in order to parse the output more comfortably)
+
+Enjoy! j
+
+
+
